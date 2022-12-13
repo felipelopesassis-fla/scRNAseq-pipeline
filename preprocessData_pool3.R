@@ -124,13 +124,13 @@ S2neg.v2M6 <- subset(S2neg.v2M6, subset = DROPLET.TYPE == "SNG" & nFeature_RNA >
 S2pos.v2M6$Donor = sapply(strsplit(as.character(S2pos.v2M6$BEST.GUESS),split = ","),'[',1)
 S2pos.v2M6$Donor = sapply(strsplit(as.character(S2pos.v2M6$Donor),split = "_"),'[',1)
 S2pos.v2M6$Sample = paste(S2pos.v2M6$Batch, S2pos.v2M6$Donor)
-S2pos.v2M6$timepoint <- "v2M6"
+S2pos.v2M6$timepoint <- "M6"
 S2pos.v2M6$Cells <- "S2P+"
 
 S2neg.v2M6$Donor = sapply(strsplit(as.character(S2neg.v2M6$BEST.GUESS),split = ","),'[',1)
 S2neg.v2M6$Donor = sapply(strsplit(as.character(S2neg.v2M6$Donor),split = "_"),'[',1)
 S2neg.v2M6$Sample = paste(S2neg.v2M6$Batch, S2neg.v2M6$Donor)
-S2neg.v2M6$timepoint <- "v2M6"
+S2neg.v2M6$timepoint <- "M6"
 S2neg.v2M6$Cells <- "S2P-"
 
 ############## End
