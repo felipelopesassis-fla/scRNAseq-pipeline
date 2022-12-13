@@ -107,30 +107,32 @@ M1C4 <- RenameCells(M1C4, new.names = paste(substr(colnames(M1C4), start = 1, st
 
 ## use HTOdemux to identify negatives droplets to use for DSB norm
 # merge objects
-S2pos.v2M6 <- merge(M1C1, y = M1C2)
-S2neg.v2M6 <- merge(M1C3, y = M1C4)
+S2pos.M6 <- merge(M1C1, y = M1C2)
+S2neg.M6 <- merge(M1C3, y = M1C4)
 
 # remove abmormally high count cells
 
-S2pos.v2M6[["percent.mt"]] <- PercentageFeatureSet(S2pos.v2M6, pattern = "^MT-")
-S2neg.v2M6[["percent.mt"]] <- PercentageFeatureSet(S2neg.v2M6, pattern = "^MT-")
+S2pos.M6[["percent.mt"]] <- PercentageFeatureSet(S2pos.v2M6, pattern = "^MT-")
+S2neg.M6[["percent.mt"]] <- PercentageFeatureSet(S2neg.v2M6, pattern = "^MT-")
 
-S2pos.v2M6 <- subset(S2pos.v2M6, subset = DROPLET.TYPE == "SNG" & nFeature_RNA > 200 & 
+S2pos.M6 <- subset(S2pos.M6, subset = DROPLET.TYPE == "SNG" & nFeature_RNA > 200 & 
                        nFeature_RNA < 4000 & percent.mt < 10)
-S2neg.v2M6 <- subset(S2neg.v2M6, subset = DROPLET.TYPE == "SNG" & nFeature_RNA > 200 & 
+S2neg.M6 <- subset(S2neg.M6, subset = DROPLET.TYPE == "SNG" & nFeature_RNA > 200 & 
                        nFeature_RNA < 4000 & percent.mt < 10)
 
 ## add metadata
-S2pos.v2M6$Donor = sapply(strsplit(as.character(S2pos.v2M6$BEST.GUESS),split = ","),'[',1)
-S2pos.v2M6$Donor = sapply(strsplit(as.character(S2pos.v2M6$Donor),split = "_"),'[',1)
-S2pos.v2M6$Sample = paste(S2pos.v2M6$Batch, S2pos.v2M6$Donor)
-S2pos.v2M6$timepoint <- "M6"
-S2pos.v2M6$Cells <- "S2P+"
+S2pos.M6$Donor = sapply(strsplit(as.character(S2pos.M6$BEST.GUESS),split = ","),'[',1)
+S2pos.M6$Donor = sapply(strsplit(as.character(S2pos.M6$Donor),split = "_"),'[',1)
+S2pos.M6$Sample = paste(S2pos.M6$Batch, S2pos.M6$Donor)
+S2pos.M6$timepoint <- "M6"
+S2pos.M6$Cells <- "S2P+"
 
-S2neg.v2M6$Donor = sapply(strsplit(as.character(S2neg.v2M6$BEST.GUESS),split = ","),'[',1)
-S2neg.v2M6$Donor = sapply(strsplit(as.character(S2neg.v2M6$Donor),split = "_"),'[',1)
-S2neg.v2M6$Sample = paste(S2neg.v2M6$Batch, S2neg.v2M6$Donor)
-S2neg.v2M6$timepoint <- "M6"
-S2neg.v2M6$Cells <- "S2P-"
+S2neg.M6$Donor = sapply(strsplit(as.character(S2neg.M6$BEST.GUESS),split = ","),'[',1)
+S2neg.M6$Donor = sapply(strsplit(as.character(S2neg.M6$Donor),split = "_"),'[',1)
+S2neg.M6$Sample = paste(S2neg.M6$Batch, S2neg.M6$Donor)
+S2neg.M6$timepoint <- "M6"
+S2neg.M6$Cells <- "S2P-"
 
+saveRDS(S2pos.M6, file = "S2pos.M6.rds")
+saveRDS(S2neg.M6, file = "S2neg.M6.rds")
 ############## End
