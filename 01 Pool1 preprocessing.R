@@ -1,9 +1,9 @@
-# scRNAseq-pipeline
-# Author: Felipe Assis
-
-# Seurat v3.1
-# https://satijalab.org/seurat/
-
+---
+Author: 'Felipe Assis, PhD'
+title: 'Pool 1 data pre-processing'
+date: '12-14-2022'
+---
+## Load Libraries
 library("Seurat") 
 library("dplyr")
 library("matrixStats")
