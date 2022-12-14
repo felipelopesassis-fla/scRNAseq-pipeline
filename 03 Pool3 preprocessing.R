@@ -116,7 +116,7 @@ M1C4 <- RenameCells(M1C4, new.names = paste(substr(colnames(M1C4), start = 1, st
 S2pos.M6 <- merge(M1C1, y = M1C2)
 S2neg.M6 <- merge(M1C3, y = M1C4)
 
-# Remove abmormally high count cells
+## Remove abmormally high count cells
 
 S2pos.M6[["percent.mt"]] <- PercentageFeatureSet(S2pos.v2M6, pattern = "^MT-")
 S2neg.M6[["percent.mt"]] <- PercentageFeatureSet(S2neg.v2M6, pattern = "^MT-")
