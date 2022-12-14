@@ -17,11 +17,11 @@ MSO.merged <- merge(S2pos.v1D14, y = c(S2neg.v1D14, Plasmablast.v1D14, S2pos.v2D
                                             S2pos.v2D9, S2neg.v2D9, Plasmablast.v2D9, S2pos.v2D14, S2neg.v2D14, 
                                             S2pos.v2D28, S2neg.v2D28, S2pos.M6, S2neg.M6))
 
-# split the dataset into a list of Seurat objects
+## Split the dataset into a list of Seurat objects
 
 MSO.merged <- SplitObject(MSO.merged, split.by = "orig.ident") 
 
-# normalize and identify variable features for each dataset independently
+## Normalize and identify variable features for each dataset independently
 
 MSO.list <- lapply(X = MSO.merged, FUN = function(x) {
   x <- NormalizeData(x, verbose = FALSE, )
@@ -58,7 +58,7 @@ Moderna.integrated <- FindVariableFeatures(Moderna.integrated, assay = "RNA", se
 bool.remove.genes = Moderna.integrated@assays$RNA@var.features %in% remove.genes
 Moderna.integrated@assays$RNA@var.features = Moderna.integrated@assays$RNA@var.features[!bool.remove.genes]
 
-### Scaling, Dimensional Reduction and Clustering. 
+## Scaling, Dimensional Reduction and Clustering. 
 
 DefaultAssay(Moderna.integrated) <- "RNA"
 Moderna.integrated <- ScaleData(Moderna.integrated, verbose = FALSE)
@@ -74,4 +74,5 @@ DimPlot(Moderna.integrated, reduction = "umap") +
   theme(text = element_text(size = 18)) 
 
 saveRDS(Moderna.integrated, file = "Moderna.integrated.rds")
-### END
+
+### END ###
