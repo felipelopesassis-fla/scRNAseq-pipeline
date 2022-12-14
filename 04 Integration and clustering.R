@@ -1,8 +1,8 @@
-# scRNAseq-pipeline
-# Author: Felipe Assis
-
-# Seurat v3.1
-# https://satijalab.org/seurat/
+---
+Author: 'Felipe Assis, PhD'
+title: 'scRNAseq - Integration and clustering'
+date: '12-14-2022'
+---
 
 ## Load Libraries 
 
