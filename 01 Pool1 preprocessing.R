@@ -4,12 +4,13 @@ title: 'Pool 1 data pre-processing'
 date: '12-14-2022'
 ---
 ## Load Libraries
+
 library("Seurat") 
 library("dplyr")
 library("matrixStats")
 library('tidyverse')
 
-### Import the data
+## Import the data
 
 M1C1.data <- Read10X(data.dir = "Moderna_P1_multi1/outs/multi/count/raw_feature_bc_matrix")
 M1C2.data <- Read10X(data.dir = "Moderna_P1_multi2/outs/multi/count/raw_feature_bc_matrix")
@@ -24,7 +25,8 @@ M1C10.data <- Read10X(data.dir = "Moderna_P1_multi10/outs/multi/count/raw_featur
 M1C11.data <- Read10X(data.dir = "Moderna_P1_multi11/outs/multi/count/raw_feature_bc_matrix")
 M1C12.data <- Read10X(data.dir = "Moderna_P1_multi12/outs/multi/count/raw_feature_bc_matrix")
 
-### Initialize the Seurat object with the raw (non-normalized data).
+## Initialize the Seurat object with the raw (non-normalized data)
+
 M1C1 <- CreateSeuratObject(counts = M1C1.data$`Gene Expression`, project = "M1C1", assay = "RNA", min.features = 5)
 M1C2 <- CreateSeuratObject(counts = M1C2.data$`Gene Expression`, project = "M1C2", assay = "RNA", min.feature = 5)
 M1C3 <- CreateSeuratObject(counts = M1C3.data$`Gene Expression`, project = "M1C3", assay = "RNA", min.feature = 5)
@@ -38,7 +40,8 @@ M1C10 <- CreateSeuratObject(counts = M1C10.data$`Gene Expression`, project = "M1
 M1C11 <- CreateSeuratObject(counts = M1C11.data$`Gene Expression`, project = "M1C11", assay = "RNA", min.feature = 5)
 M1C12 <- CreateSeuratObject(counts = M1C12.data$`Gene Expression`, project = "M1C12", assay = "RNA")
 
-  ### Create ADT Assay
+## Create ADT Assay
+
 M1C1[["ADT"]] <- CreateAssayObject(counts = M1C1.data$`Antibody Capture`[1:18,colnames(M1C1)]) # RBD and S1, but no CD11c, CD307e and CD95 ADTs
 M1C2[["ADT"]] <- CreateAssayObject(counts = M1C2.data$`Antibody Capture`[1:18,colnames(M1C2)]) # RBD and S1, but no CD11c, CD307e and CD95 ADTs
 M1C3[["ADT"]] <- CreateAssayObject(counts = M1C3.data$`Antibody Capture`[1:18,colnames(M1C3)]) # RBD and S1, but no CD11c, CD307e and CD95 ADTs
@@ -52,7 +55,8 @@ M1C10[["ADT"]] <- CreateAssayObject(counts = M1C10.data$`Antibody Capture`[1:19,
 M1C11[["ADT"]] <- CreateAssayObject(counts = M1C11.data$`Antibody Capture`[1:19,colnames(M1C11)])# no RBD and S1 ADTs
 M1C12[["ADT"]] <- CreateAssayObject(counts = M1C12.data$`Antibody Capture`[1:19,colnames(M1C12)])# no RBD and S1 ADTs
 
-  ### Create HTO Assay
+## Create HTO Assay
+
 M1C1[["HTO"]] <- CreateAssayObject(counts = M1C1.data$`Antibody Capture`[19:20,colnames(M1C1)])
 M1C2[["HTO"]] <- CreateAssayObject(counts = M1C2.data$`Antibody Capture`[19:20,colnames(M1C2)])
 M1C3[["HTO"]] <- CreateAssayObject(counts = M1C3.data$`Antibody Capture`[19:20,colnames(M1C3)])
@@ -66,8 +70,8 @@ M1C10[["HTO"]] <- CreateAssayObject(counts = M1C10.data$`Antibody Capture`[20:21
 M1C11[["HTO"]] <- CreateAssayObject(counts = M1C11.data$`Antibody Capture`[20:21,colnames(M1C11)])
 M1C12[["HTO"]] <- CreateAssayObject(counts = M1C12.data$`Antibody Capture`[20:21,colnames(M1C12)])
 
-#### Add metadata to distinguish each object 
-### Batch
+## Add metadata to distinguish each object 
+# Batch
 M1C1$Batch <- rep("M1C1", length(colnames(M1C1)))
 M1C2$Batch <- rep("M1C2", length(colnames(M1C2)))
 M1C3$Batch <- rep("M1C3", length(colnames(M1C3)))
@@ -81,7 +85,7 @@ M1C10$Batch <- rep("M1C10", length(colnames(M1C10)))
 M1C11$Batch <- rep("M1C11", length(colnames(M1C11)))
 M1C12$Batch <- rep("M1C12", length(colnames(M1C12)))
 
-### orig.ident
+# Orig.ident
 M1C1$orig.ident <- "S2pos.v2D28"
 M1C2$orig.ident <- "S2pos.v2D28"
 M1C3$orig.ident <- "S2neg.v2D28"
@@ -95,7 +99,7 @@ M1C10$orig.ident <- "S2neg.v2D9"
 M1C11$orig.ident <- "S2neg.v2D9"
 M1C12$orig.ident <- "Plasmablast.v2D9"
 
-### Rename barcode for each object to match barcodes in SNP file
+## Rename barcode for each object to match barcodes in SNP file
 
 M1C1 <- RenameCells(M1C1, new.names = paste(substr(colnames(M1C1), start = 1, stop = 17),"1", sep = ""))
 M1C2 <- RenameCells(M1C2, new.names = paste(substr(colnames(M1C2), start = 1, stop = 17),"2", sep = ""))
@@ -110,7 +114,7 @@ M1C10 <- RenameCells(M1C10, new.names = paste(substr(colnames(M1C10), start = 1,
 M1C11 <- RenameCells(M1C11, new.names = paste(substr(colnames(M1C11), start = 1, stop = 17),"11", sep = ""))
 M1C12 <- RenameCells(M1C12, new.names = paste(substr(colnames(M1C12), start = 1, stop = 17),"12", sep = ""))
 
-##### Add new metadata (SNP <- DEMUXLET) 
+## Add new metadata (SNP <- DEMUXLET) 
 
 M1C1_demuxbestList = list()
 for(i in 1:length("1")){
@@ -268,7 +272,7 @@ setdiff(colnames(M1C12), M1C12_demuxbestdf$NewBarcode)
 rownames(M1C12_demuxbestdf) <- M1C12_demuxbestdf$NewBarcode
 M1C12 <- AddMetaData(M1C12, metadata = M1C12_demuxbestdf[colnames(M1C12),])
 
-### Rename the cells again to match barcodes from VDJ data.
+## Rename the cells again to match barcodes from VDJ data.
 
 M1C1 <- RenameCells(M1C1, new.names = paste(substr(colnames(M1C1), start = 1, stop = 17),"<sample1><pool1>", sep = ""))
 M1C2 <- RenameCells(M1C2, new.names = paste(substr(colnames(M1C2), start = 1, stop = 17),"<sample2><pool1>", sep = ""))
@@ -283,7 +287,8 @@ M1C10 <- RenameCells(M1C10, new.names = paste(substr(colnames(M1C10), start = 1,
 M1C11 <- RenameCells(M1C11, new.names = paste(substr(colnames(M1C11), start = 1, stop = 17),"<sample11><pool1>", sep = ""))
 M1C12 <- RenameCells(M1C12, new.names = paste(substr(colnames(M1C12), start = 1, stop = 17),"<sample12><pool1>", sep = ""))
 
-### merge objects
+## Merge objects
+
 S2pos.v2D28 <- merge(M1C1, y = M1C2)
 S2neg.v2D28 <- M1C3
 S2pos.v2D14 <- merge(M1C4, y = M1C5)
@@ -292,7 +297,8 @@ S2pos.v2D9 <- merge(M1C8, y = M1C9)
 S2neg.v2D9 <- merge(M1C10, y = M1C11)
 Plasmablast.v2D9 <- M1C12
 
-# remove abmormally high count cells
+## Remove abmormally high count cells
+
 S2pos.v2D28 <- subset(S2pos.v2D28, subset = nCount_ADT < 30000 & nCount_HTO < 15000)
 S2neg.v2D28 <- subset(S2neg.v2D28, subset = nCount_ADT < 30000 & nCount_HTO < 15000)
 S2pos.v2D14 <- subset(S2pos.v2D14, subset = nCount_ADT < 30000 & nCount_HTO < 15000)
@@ -309,7 +315,7 @@ S2pos.v2D9[["percent.mt"]] <- PercentageFeatureSet(S2pos.v2D9, pattern = "^MT-")
 S2neg.v2D9[["percent.mt"]] <- PercentageFeatureSet(S2neg.v2D9, pattern = "^MT-")
 Plasmablast.v2D9[["percent.mt"]] <- PercentageFeatureSet(Plasmablast.v2D9, pattern = "^MT-")
 
-### HTO demultiplex
+## HTO demultiplex
 
 S2pos.v2D28 <- NormalizeData(S2pos.v2D28, assay = "HTO", normalization.method = "CLR", margin = 2)
 S2pos.v2D28 <- ScaleData(S2pos.v2D28, assay = "HTO", model.use = "linear")
@@ -367,7 +373,8 @@ Plasmablast.v2D9 <- subset(Plasmablast.v2D9, idents = c("HTO7-PROT"))
 Plasmablast.v2D9.100 <- subset(Plasmablast.v2D9, subset = DROPLET.TYPE == "SNG" & nFeature_RNA > 100 & 
                              nFeature_RNA < 4000 & percent.mt < 10)
 
-## add metadata
+## Additional metadata
+
 S2pos.v2D28$Donor = sapply(strsplit(as.character(S2pos.v2D28$BEST.GUESS),split = ","),'[',1)
 S2pos.v2D28$Donor = sapply(strsplit(as.character(S2pos.v2D28$Donor),split = "_"),'[',1)
 S2pos.v2D28$Sample = paste(S2pos.v2D28$Batch, S2pos.v2D28$Donor)
@@ -410,7 +417,8 @@ Plasmablast.v2D9$Sample = paste(Plasmablast.v2D9$Batch, Plasmablast.v2D9$Donor)
 Plasmablast.v2D9$timepoint = "v2D9"
 Plasmablast.v2D9Cells = "Plasmablast"
 
-#save objects for clustering
+## Save objects for clustering
+
 saveRDS(S2pos.v2D28, file = "S2pos.v2D28.rds")
 saveRDS(S2neg.v2D28, file = "S2neg.v2D28.rds")
 saveRDS(S2pos.v2D14, file = "S2pos.v2D14.rds")
@@ -419,4 +427,4 @@ saveRDS(S2pos.v2D9, file = "S2pos.v2D9.rds")
 saveRDS(S2neg.v2D9, file = "S2neg.v2D9.rds")
 saveRDS(Plasmablast.v2D9, file = "Plasmablast.v2D9.rds")
 
-##### End
+### End ###
