@@ -1,6 +1,6 @@
 ---
 Author: Felipe Assis, PhD
-title: "All figures"
+title: "Figures 2 and 3"
 date: '6-22-2022'
 
 ---
