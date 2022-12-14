@@ -1,4 +1,10 @@
-#this is tested using R 3.6.1 on a high-performance comupting node with 16 cores and at least 160 gb or ram. 
+---
+Author: 'Felipe Assis, PhD'
+title: 'Pool 2 data pre-processing'
+date: '12-14-2022'
+---
+
+## Load Libraries 
 library("Seurat") #load Seurat 3.1
 library("dplyr")
 library("matrixStats")
