@@ -1,11 +1,11 @@
 # Scripts for scRNAseq analysis performed at "Tracking B Cell Responses to the SARS-CoV-2 mRNA-1273 Vaccine" study
+
 Felipe Lopes de Assis felipe.lopesdeassis@nih.gov 12/14/2022
 
-Dependencies
+# Dependencies
 
 R 4.1.0 
-
-# R packages:
+R packages:
 library(Seurat)
 library(patchwork)
 library(ggplot2)
@@ -13,10 +13,6 @@ library(dplyr)
 library(scales)
 library(RColorBrewer)
 library(dittoSeq)
-
-Processing Assis et al. 2023 raw data
-
-To process data from the B CELL TRAJECTORY study cohort, move to data/Trajectory and run
 
 # Download raw data files into appropriate place and identify each file properly 
 
