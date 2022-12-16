@@ -5,18 +5,27 @@ Felipe Lopes de Assis felipe.lopesdeassis@nih.gov 12/14/2022
 # Dependencies
 
 R 4.1.0 
+
 R packages:
+
 library(Seurat)
+
 library(patchwork)
+
 library(ggplot2)
+
 library(dplyr)
+
 library(scales)
+
 library(RColorBrewer)
+
 library(dittoSeq)
 
 # Download raw data files into appropriate place and identify each file properly 
 
 mkdir raw.data
+
 data_source = https://www.ncbi.nlm.nih.gov/geo/GSE219098
 
 # Import each raw data file using Seurat Read10X funnction       
@@ -28,7 +37,9 @@ raw.data <- Read10X(data.dir = "raw.data/raw_feature_bc_matrix")
 R scripts: 
 
 01.Pool1.preprocessing.R
+
 02.Pool2.preprocessing.R
+
 03.Pool3.preprocessing.R
 
 # Combine and integrate datasets into one file
