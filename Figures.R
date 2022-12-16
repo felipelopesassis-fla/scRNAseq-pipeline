@@ -157,7 +157,7 @@ p9 <- VlnPlot(cluster5, assay = "RNA", feature = feat.rna.c5, stack = TRUE) + No
 
 ## Retrieve the Ids from the selected cells/timepoints   
 
-Idents(Moderna.integrated) <- "orig.ident"
+Idents(cluster5) <- "orig.ident"
 
 p10a <- DimPlot(cluster5, reduction = "umap", cells.highlight = v1D14, sizes.highlight = 0.2) + 
   theme(text = element_text(size = 18)) + ggtitle("v1D14") + NoLegend() 
