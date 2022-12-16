@@ -26,7 +26,9 @@ library(dittoSeq)
 
 mkdir raw.data
 
-data_source = https://www.ncbi.nlm.nih.gov/geo/GSE219098
+data_source = https://www.ncbi.nlm.nih.gov/geo/
+
+accession number: GSE219098
 
 # Import each raw data file using Seurat Read10X funnction       
 
