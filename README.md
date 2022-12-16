@@ -18,16 +18,18 @@ Processing Assis et al. 2023 raw data
 
 To process data from the B CELL TRAJECTORY study cohort, move to data/Trajectory and run
 
-# download all raw data files into appropriate place
+# Download raw data files into appropriate place and identify each file properly 
 
-# Import and identify each file properly      
+mkdir raw.data
+data_source = https://www.ncbi.nlm.nih.gov/geo/GSE219098
 
-raw.data <- Read10X(data.dir = "raw_feature_bc_matrix") 
+# Import each raw data file using Seurat Read10X funnction       
 
-# Initialize the Seurat objects with the raw data (non-normalized data), and perform SNP 
-# and HTO demultiplexing:   
+raw.data <- Read10X(data.dir = "raw.data/raw_feature_bc_matrix") 
 
-Rscripts: 
+# Initialize the Seurat objects with the raw data (non-normalized data), and perform SNP and HTO demultiplexing:   
+
+R scripts: 
 
 01.Pool1.preprocessing.R
 02.Pool2.preprocessing.R
@@ -35,7 +37,7 @@ Rscripts:
 
 # Combine and integrate datasets into one file
 
-Rscript 04.Integration.and.clustering.R
+Rscript 04.Integration&clustering.R
 
 # Once all of the above are successfully run (congratulations!), make figures:
 
