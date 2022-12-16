@@ -86,7 +86,7 @@ p5f <- DimPlot(Moderna.integrated, reduction = "umap", cells.highlight = M6)
 
 ########### Analysis of switched MBC-C5 (re-clustering) 
 
-cluster5 <- subset(Moderna.integrated, idents = "switched MBC-C5")
+cluster5 <- subset(Moderna.integrated, idents = "Switched MBC-C5")
 
 DefaultAssay(cluster5) <- "RNA"
 
