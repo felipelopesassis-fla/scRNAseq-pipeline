@@ -26,7 +26,7 @@ library(dittoSeq)
 
 mkdir raw.data
 
-data_source = https://www.ncbi.nlm.nih.gov/geo/
+data_source = https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE219098
 
 accession number: GSE219098
 
