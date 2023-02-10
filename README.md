@@ -50,6 +50,6 @@ Rscript 04.Integration&clustering.R
 
 # Once all of the above are successfully run (congratulations!), make figures:
 
-Rscript 05.Figures.R
+Rscript scRNAseq_analysis.R
 
 Figure drafts will be in the analysis/figures/drafts folder. These are touched up with Adobe Illustrator to create the final figure panels.
